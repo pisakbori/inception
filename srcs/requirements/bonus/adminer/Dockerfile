@@ -5,6 +5,7 @@ RUN apk update && \
     apk add php php-fpm php82-session && \
     apk add vim && \
     apk add curl && \
+    apk add php-mysqli  && \
     adduser -D -G www-data www-data  && \
     mkdir /run/adminer
 
