@@ -1,46 +1,17 @@
-version: '3.8' # Specify the version of docker-compose
+version: "3.8" # Specify the Docker Compose file version
 
 services:
-  # mariadb:
-  #   image: mariadb:latest # Use the latest mariadb image
-  #   container_name: mariadb-container # Name of the container
-  #   environment:
-  #     MYSQL_USER: root
-  #     MYSQL_ROOT_PASSWORD: my-secret-pw # Environment variables
-  #     MYSQL_DATABASE: wordpress
-  #   networks:
-  #     - mariadb_network # Custom network
-  #   ports:
-  #     - "3306:3306" # Map port 3306 on host to port 3306 in the container
-  #   restart: always
-  #   volumes:
-  #     - inception-mariadb-data:/var/lib/mysql
-
-  # wordpress:
-  #   depends_on:
-  #     - mariadb
-  #   image: wordpress:latest
-  #   ports:
-  #     - "8000:80"
-  #   restart: always
-  #   environment:
-  #     WORDPRESS_DB_HOST: mariadb:3306
-  #     WORDPRESS_DB_USER: root
-  #     WORDPRESS_DB_PASSWORD: my-secret-pw
-  #     WORDPRESS_DB_NAME: wordpress
-
-  nginx:
-    image: nginx:latest
-    volumes:
-      - ./web-content/index.html:/usr/share/nginx/html/index.html
+  adminer: # First service/container
+    image: adminer # Replace with your actual app image name
     ports:
-      - "8080:80"
+      - "9000:9000" # Map port 9000 of the container to port 9000 on the host
+    networks:
+      - mynetwork # Connect to the custom network
+
+  nginx: # Second service/container
+    image: nginx # Replace with your actual database image name
+    networks:
+      - mynetwork # Connect to the same custom network
 
 networks:
-  mariadb_network:
-    driver: bridge # Use a bridge network (default)
-
-volumes:
-  inception-mariadb-data: {}
-
-# https://www.docker.com/blog/how-to-use-the-official-nginx-docker-image/
+  mynetwork: # Define the custom network
