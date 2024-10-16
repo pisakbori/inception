@@ -11,6 +11,7 @@ RUN apk update && \
 
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 COPY conf/fastcgi-php.conf /etc/nginx/fastcgi-php.conf
+COPY conf/mime.types /etc/nginx/mime.types
 
 EXPOSE	443
 
