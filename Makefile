@@ -24,6 +24,7 @@ status :
 setup:
 	${ENV} ./add-host.sh
 	mkdir -p ${DATA_PATH}
+	mkdir -p ${DATA_PATH}/redis
 	mkdir -p ${DATA_PATH}/db
 	mkdir -p ${DATA_PATH}/wp
 

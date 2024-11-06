@@ -14,6 +14,15 @@ wp core install --url=$DOMAIN/ --title=$WP_TITLE --admin_user=$WP_ADMIN_USR --ad
 
 # Create a new WordPress user, and sets its role to author ( --role=author )
 wp user create $WP_USR $WP_EMAIL --role=author --user_pass=$WP_PWD 
+
+wp plugin install redis-cache --activate
+
+wp config set WP_REDIS_HOST 'redis'
+wp config set WP_REDIS_PORT '6379'
+wp config set WP_REDIS_PASSWORD ${REDIS_PASS}
+
+wp redis enable
+
 fi
 
 exec php-fpm82 --nodaemonize

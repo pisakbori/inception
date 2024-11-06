@@ -7,7 +7,7 @@ services:
     ports:
       - "7077:7077"
     networks:
-      - mynetwork
+      - inception
     env_file:
       - .env
     restart: on-failure
@@ -20,7 +20,7 @@ services:
     ports:
       - "9000:9000"
     networks:
-      - mynetwork
+      - inception
     volumes:
       - wordpress-data:/var/www/html
     env_file:
@@ -42,7 +42,7 @@ services:
     ports:
       - "443:443"
     networks:
-      - mynetwork
+      - inception
     volumes:
       - wordpress-data:/var/www/html
     env_file:
@@ -59,15 +59,35 @@ services:
     ports:
       - "3306:3306"
     networks:
-      - mynetwork
+      - inception
     volumes:
       - db-data:/var/lib/mysql
     env_file:
       - .env
     restart: on-failure
 
+  redis:
+    container_name: redis
+    build:
+      context: ./requirements/bonus/redis
+      dockerfile: Dockerfile
+      args:
+        REDIS_PASS: ${REDIS_PASS}
+    image: redis
+    ports:
+      - "6379:6379" # Expose Redis on the default port
+    networks:
+      - inception
+    depends_on:
+      - wordpress
+    restart: on-failure
+    volumes:
+      - redis-data:/var/lib/redis
+    env_file:
+      - .env
+
 networks:
-  mynetwork: # Define the custom network
+  inception: # Define the custom network
 
 volumes:
   wordpress-data:
@@ -82,3 +102,9 @@ volumes:
       type: "none"
       o: bind
       device: "~/bpisak-l/data/db"
+  redis-data:
+    driver: local
+    driver_opts:
+      type: "none"
+      o: bind
+      device: "~/bpisak-l/data/redis"
