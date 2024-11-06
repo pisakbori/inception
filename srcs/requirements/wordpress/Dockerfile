@@ -12,20 +12,15 @@ RUN apk update && \
     curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x wp-cli.phar && \
     mv wp-cli.phar /usr/local/bin/wp && \
-    chmod +x start.sh 
+    chmod +x start.sh && \
+    adduser -D -G www-data www-data &&\
+    mkdir -p /var/www/html &&\
+    chown -R www-data:www-data /var/www/html/ &&\
+    chown -R www-data:www-data /var/log/php82
+
+USER www-data
 
 COPY /conf/www.conf /etc/php82/php-fpm.d/www.conf
-
-ENV WP_DATABASE=dbname
-ENV WP_USER=mysql2
-ENV WP_PASSWORD=bla
-ENV WP_ROOT_PASSWORD=blaa
-ENV WP_HOST=mariadb
-ENV WP_EMAIL=borbalka@blabla.com
-ENV WP_ADMIN_EMAIL=borbalka@admin.com
-ENV WP_TITLE='Hello_world'
-ENV WP_URL=localhost
-ENV WP_ADMIN_PASSWORD=bla
 
 ENTRYPOINT ["./start.sh"]
 

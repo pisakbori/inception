@@ -7,7 +7,10 @@ RUN apk update && \
     apk add curl && \
     apk add php-mysqli  && \
     adduser -D -G www-data www-data  && \
+    chown -R www-data:www-data /var/log/php82 && \
     mkdir /run/adminer
+
+USER www-data
 
 COPY /tools/adminer-4.8.1.php /usr/share/webapps/adminer/index.php
 COPY /conf/www.conf /etc/php82/php-fpm.d/www.conf

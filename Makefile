@@ -1,6 +1,6 @@
 LOGIN =		bpisak-l
-DOMAIN =	${LOGIN}.42.fr
 DATA_PATH = ${HOME}/${LOGIN}/data
+ENV =		LOGIN=${LOGIN} DATA_PATH=${DATA_PATH} DOMAIN=${LOGIN}.42.fr 
 
 all : up
 
@@ -20,6 +20,7 @@ status :
 	docker-compose -f ./srcs/docker-compose.yml ps
 
 setup:
+	${ENV} ./add-host.sh
 	mkdir -p ~/${LOGIN}/
 	mkdir -p ${DATA_PATH}
 	mkdir -p ${DATA_PATH}/db

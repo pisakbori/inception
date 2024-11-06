@@ -7,17 +7,16 @@ RUN apk update && \
     apk upgrade && \
     apk add vim && \
     chmod +x start.sh   && \
-    apk add mariadb mariadb-client
+    apk add mariadb mariadb-client &&\
+    chown mysql:mysql /etc/my.cnf.d &&\
+    mariadb-install-db --user=mysql --datadir=/var/lib/mysql &&\
+    mkdir -p /run/mysqld &&\
+    chown mysql:mysql /run/mysqld
 
-
-ENV SQL_DATABASE=dbname
-ENV SQL_USER=mysql2
-ENV SQL_PASSWORD=bla
-ENV SQL_ROOT_PASSWORD=blaa
+USER mysql
 
 EXPOSE	3306
 
 ENTRYPOINT ["./start.sh"]
-# ENTRYPOINT ["sh"]
 
 
