@@ -1,6 +1,8 @@
 LOGIN =		bpisak-l
-DATA_PATH = ${HOME}/${LOGIN}/data
-ENV =		LOGIN=${LOGIN} DATA_PATH=${DATA_PATH} DOMAIN=${LOGIN}.42.fr 
+ROOT_DIR= ${HOME}
+# ROOT_DIR= /home/login
+DATA_PATH = ${ROOT_DIR}/${LOGIN}/data
+ENV =		LOGIN=${LOGIN} DATA_PATH=${DATA_PATH} DOMAIN=${LOGIN}.42.fr
 
 all : up
 
@@ -21,10 +23,18 @@ status :
 
 setup:
 	${ENV} ./add-host.sh
-	mkdir -p ~/${LOGIN}/
 	mkdir -p ${DATA_PATH}
 	mkdir -p ${DATA_PATH}/db
 	mkdir -p ${DATA_PATH}/wp
+
+before-eval:
+	docker stop $$(docker ps -qa); docker rm $$(docker ps -qa); docker rmi -f $$(docker images -qa); docker volume rm $$(docker volume ls -q); docker network rm $$(docker network ls -q) 2>/dev/null
+
+check-tlsv1.2:
+	openssl s_client -connect ${LOGIN}.42.fr:443 -tls1_2
+
+check-tlsv1.3:
+	openssl s_client -connect ${LOGIN}.42.fr:443 -tls1_3
 
 clean: stop
 	@rm -rf ${DATA_PATH}
