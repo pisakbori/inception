@@ -38,6 +38,8 @@ services:
       - "3306:3306"
     networks:
       - mynetwork
+    volumes:
+      - db-data:/var/lib/mysql
 
 networks:
   mynetwork: # Define the custom network
@@ -48,4 +50,10 @@ volumes:
     driver_opts:
       type: "none"
       o: bind
-      device: "~/bpisak-l/data"
+      device: "~/bpisak-l/data/wp"
+  db-data:
+    driver: local
+    driver_opts:
+      type: "none"
+      o: bind
+      device: "~/bpisak-l/data/db"
