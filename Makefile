@@ -1,6 +1,5 @@
 LOGIN =		bpisak-l
-ROOT_DIR= ${HOME}
-# ROOT_DIR= /home/login
+ROOT_DIR= /home
 DATA_PATH = ${ROOT_DIR}/${LOGIN}/data
 ENV =		LOGIN=${LOGIN} DATA_PATH=${DATA_PATH} DOMAIN=${LOGIN}.42.fr
 

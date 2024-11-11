@@ -1,3 +1,5 @@
 .vscode
 help.txt
 *.pdf
+*.pem
+*.env
