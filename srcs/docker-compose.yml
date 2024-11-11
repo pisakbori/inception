@@ -95,16 +95,16 @@ volumes:
     driver_opts:
       type: "none"
       o: bind
-      device: "~/bpisak-l/data/wp"
+      device: "/home/${LOGIN}/data/wp"
   db-data:
     driver: local
     driver_opts:
       type: "none"
       o: bind
-      device: "~/bpisak-l/data/db"
+      device: "/home/${LOGIN}/data/db"
   redis-data:
     driver: local
     driver_opts:
       type: "none"
       o: bind
-      device: "~/bpisak-l/data/redis"
+      device: "/home/${LOGIN}/data/redis"
