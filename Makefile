@@ -26,7 +26,6 @@ setup:
 	mkdir -p ${DATA_PATH}/redis
 	mkdir -p ${DATA_PATH}/db
 	mkdir -p ${DATA_PATH}/wp
-	sudo chown -R ${LOGIN}:${LOGIN} ${DATA_PATH}
 
 before-eval:
 	docker stop $$(docker ps -qa); docker rm $$(docker ps -qa); docker rmi -f $$(docker images -qa); docker volume rm $$(docker volume ls -q); docker network rm $$(docker network ls -q) 2>/dev/null
@@ -44,7 +43,7 @@ try-connect-443:
 	telnet bpisak-l.42.fr 443
 
 clean: stop
-	@rm -rf ${DATA_PATH}
+	sudo rm -rf ${DATA_PATH}
 
 fclean: clean
 	docker compose -f ./srcs/docker-compose.yml down --volumes --rmi all
