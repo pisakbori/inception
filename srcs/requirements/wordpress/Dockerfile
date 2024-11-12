@@ -24,6 +24,4 @@ COPY /conf/www.conf /etc/php82/php-fpm.d/www.conf
 
 ENTRYPOINT ["./start.sh"]
 
-EXPOSE	9000
-
 

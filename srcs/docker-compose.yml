@@ -4,8 +4,6 @@ services:
     build:
       context: ./requirements/bonus/adminer
       dockerfile: Dockerfile
-    ports:
-      - "7077:7077"
     networks:
       - inception
     env_file:
@@ -17,8 +15,6 @@ services:
     build:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
-    ports:
-      - "9000:9000"
     networks:
       - inception
     volumes:
@@ -56,8 +52,6 @@ services:
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
-    ports:
-      - "3306:3306"
     networks:
       - inception
     volumes:
@@ -73,8 +67,6 @@ services:
       dockerfile: Dockerfile
       args:
         REDIS_PASS: ${REDIS_PASS}
-    ports:
-      - "6379:6379" # Expose Redis on the default port
     networks:
       - inception
     depends_on:

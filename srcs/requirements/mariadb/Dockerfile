@@ -15,8 +15,6 @@ RUN apk update && \
 
 USER mysql
 
-EXPOSE	3306
-
 ENTRYPOINT ["./start.sh"]
 
 
