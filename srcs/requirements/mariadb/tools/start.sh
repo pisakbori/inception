@@ -1,8 +1,6 @@
 #!/bin/sh
 
-
-
-echo ===========================
+echo "before mysqld"
 
 mysqld --user=mysql --bootstrap --verbose=0  --skip-networking=0 <<EOF
 CREATE DATABASE IF NOT EXISTS ${SQL_DATABASE};
@@ -13,7 +11,7 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY '${SQL_ROOT_PASSWORD}';
 FLUSH PRIVILEGES;
 EOF
 
-echo ===========================
+echo =========================== after mysqld
 
 # mysqladmin -u root -p$SQL_ROOT_PASSWORD shutdown;
 ps
