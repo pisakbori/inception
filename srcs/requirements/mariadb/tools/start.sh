@@ -13,9 +13,9 @@ EOF
 
 echo =========================== after mysqld
 
-# mysqladmin -u root -p$SQL_ROOT_PASSWORD shutdown;
-ps
+mysqladmin -u root -p$SQL_ROOT_PASSWORD shutdown;
 
-echo ===========================
+
+echo ===========================after mysqladmin
 
 exec mysqld_safe
